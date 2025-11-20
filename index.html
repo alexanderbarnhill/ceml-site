@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CEML – Centre for Environmental Machine Learning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="CEML is an emerging environmental machine learning lab focused on data curation, bioacoustics, photo-ID, and meta-learning for downstream ecological analysis."
+  />
+
+  <!-- Optional: simple web font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      /* Sea/blue-grey palette */
+      --bg-deep: #0c2432;       /* deep, calm navy */
+      --bg-mid: #1a3a4a;        /* mid blue-grey */
+      --accent: #7fb3d5;        /* soft sea blue */
+      --accent-soft: #b9d7e8;   /* lighter accent */
+      --text-main: #f5f7fa;     /* almost white */
+      --text-muted: #b3c0cc;    /* muted grey */
+      --card-bg: rgba(9, 22, 32, 0.85);
+      --border-soft: rgba(255, 255, 255, 0.06);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--text-main);
+      background: radial-gradient(circle at top left, #274863 0, #07131b 55%, #04090d 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page {
+      max-width: 960px;
+      width: 100%;
+    }
+
+    .hero {
+      position: relative;
+      background: linear-gradient(
+          135deg,
+          rgba(19, 40, 53, 0.9),
+          rgba(6, 18, 28, 0.98)
+        );
+      border-radius: 28px;
+      padding: 32px 28px 28px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+    }
+
+    /* Subtle “wave” shapes in the background */
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(38px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, var(--bg-mid), transparent 60%);
+      top: -160px;
+      right: -120px;
+    }
+
+    .hero::after {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, var(--accent-soft), transparent 65%);
+      bottom: -160px;
+      left: -80px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 24px 20px 22px;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(9, 39, 53, 0.85);
+      border: 1px solid rgba(151, 210, 239, 0.28);
+      color: var(--accent-soft);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(127, 179, 213, 0.18);
+    }
+
+    .title {
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 34rem;
+      margin-bottom: 22px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--accent-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 26px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.16s ease, border-color 0.16s ease,
+        transform 0.08s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #5f93b6);
+      color: #06141f;
+      box-shadow: 0 10px 28px rgba(7, 21, 30, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #8bc0dd, var(--accent));
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent-soft);
+      border-color: rgba(149, 188, 215, 0.5);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(13, 34, 47, 0.9);
+      border-color: rgba(191, 222, 242, 0.85);
+    }
+
+    .micro-note {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .right-panel {
+      justify-self: stretch;
+    }
+
+    .info-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px 16px;
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .info-header {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 14px;
+    }
+
+    .info-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .info-item-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .info-item-value {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(133, 178, 205, 0.45);
+      color: var(--accent-soft);
+      background: rgba(9, 32, 45, 0.85);
+    }
+
+    .footer {
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(179, 192, 204, 0.5);
+    }
+
+    .footer a:hover {
+      color: var(--accent-soft);
+      border-color: var(--accent-soft);
+    }
+
+    @media (max-width: 600px) {
+      .actions {
+        flex-direction: column;
+      }
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>CEML · Centre for Environmental Machine Learning</span>
+          </div>
+          <h1 class="title">Machine learning for animals, sound, and changing seas.</h1>
+          <p class="subtitle">
+            CEML is an emerging independent lab focused on environmental machine learning:
+            data curation for long-term ecological datasets, photo-ID, bioacoustics, and
+            meta-learning that links metadata and context to downstream analysis.
+          </p>
+          <div class="tagline">
+            Data, signals, and structure for real-world conservation questions.
+          </div>
+
+          <div class="actions">
+            <a href="mailto:info@ceml.io" class="btn btn-primary">
+              Contact CEML
+            </a>
+            <a href="#" class="btn btn-ghost" aria-disabled="true">
+              Concept note (coming soon)
+            </a>
+          </div>
+          <div class="micro-note">
+            CEML is currently in its early formation stage. You may also encounter our work
+            through platforms such as Finwave (finwave.io) for collaborative photo-ID and
+            encounter management.
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="info-card">
+            <div class="info-header">Initial themes</div>
+            <ul class="info-list">
+              <li>
+                <div class="info-item-label">Focus areas</div>
+                <div class="info-item-value">
+                  Photo-ID and encounter management, bioacoustic analysis, and careful data
+                  curation for long-term environmental and animal datasets.
+                </div>
+              </li>
+              <li>
+                <div class="info-item-label">Methods</div>
+                <div class="info-item-value">
+                  Representation learning, co-occurrence and meta-learning, and ML systems
+                  that make metadata and context first-class citizens in ecological analysis.
+                </div>
+              </li>
+            </ul>
+            <div class="pill-row">
+              <span class="pill">Photo-ID &amp; encounters</span>
+              <span class="pill">Bioacoustics</span>
+              <span class="pill">Data curation</span>
+              <span class="pill">Co-occurrence</span>
+              <span class="pill">Meta-learning</span>
+            </div>
+
+            <div class="footer">
+              <span>© <span id="year"></span> CEML – Centre for Environmental Machine Learning</span>
+              <span>Environmental ML for animals, sound, and changing ecosystems.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Optional: inline script for dynamic year; remove if you want zero JS -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
