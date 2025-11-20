@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>CEML – Centre for Environmental Machine Learning</title>
+  <title>CEML – Center for Environmental Machine Learning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
     content="CEML is an emerging environmental machine learning lab focused on data curation, bioacoustics, photo-ID, and meta-learning for downstream ecological analysis."
   />
 
-  <!-- Optional: simple web font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -40,7 +36,7 @@
     }
 
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
       color: var(--text-main);
       background: radial-gradient(circle at top left, #274863 0, #07131b 55%, #04090d 100%);
@@ -306,7 +302,7 @@
         <div>
           <div class="badge">
             <span class="badge-dot"></span>
-            <span>CEML · Centre for Environmental Machine Learning</span>
+            <span>CEML · Center for Environmental Machine Learning</span>
           </div>
           <h1 class="title">Machine learning for animals, sound, and changing seas.</h1>
           <p class="subtitle">
@@ -361,7 +357,7 @@
             </div>
 
             <div class="footer">
-              <span>© <span id="year"></span> CEML – Centre for Environmental Machine Learning</span>
+              <span>© <span id="year"></span> CEML – Center for Environmental Machine Learning</span>
               <span>Environmental ML for animals, sound, and changing ecosystems.</span>
             </div>
           </div>
@@ -369,8 +365,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Optional: inline script for dynamic year; remove if you want zero JS -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
